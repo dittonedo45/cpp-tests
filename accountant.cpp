@@ -29,10 +29,13 @@ int main (int argsc, char **args)
 	return true;
 }, -1);
 
-	int s;
+	int s=0;
 	rb_load_protect (rb_str_new_cstr (args[1]),
 			0, &s);
-
+	if (s)
+	{
+		cout << RSTRING_PTR (rb_obj_as_string (rb_errinfo ())) << endl;
+	}
 	git_libgit2_shutdown ();
 	ruby_finalize ();
 	return( 0 );
