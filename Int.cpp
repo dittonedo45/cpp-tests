@@ -57,7 +57,15 @@ int main (int argsc, char **args)
 	VALUE vs;
 
 	vs=rb_define_class ("Shame", rb_cObject);
-	rb_define_alloc_func (vs, sshame_alloc);
+	rb_define_alloc_func (vs, [](VALUE a)->VALUE
+{
+	VALUE b;
+	struct shame_t *s;
+
+	b=TypedData_Make_Struct (a, struct shame_t, &sshme, s);
+
+	return b;
+});
 	rb_define_method (vs, "initialize",(VALUE(*)(...)) sshame_init, 0);
 	rb_define_method (vs, "n", (VALUE(*)(...))sshame_n, 0);
 
